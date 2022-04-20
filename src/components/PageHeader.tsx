@@ -1,8 +1,12 @@
 export default function PageHeader(): JSX.Element {
   return (
     <>
-      <h1>Fitness Goals</h1>
-      <p>Enjoy features that will help you on your fitness journey</p>
+    <div className ="header">
+      <h1 >Fitness Goals</h1>
+      <br />
+      <p className="description">Enjoy features that will help you on your fitness journey</p>
+      <hr />
+    </div>
     </>
   );
 }
