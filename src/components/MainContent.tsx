@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function MainContent(): JSX.Element {
     const [weightArray, setWeightArray] = useState<string[]>([])
