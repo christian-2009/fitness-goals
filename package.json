@@ -15,7 +15,6 @@
     "lint": "eslint src",
     "type-check": "tsc --noEmit",
     "test": "react-scripts test --watchAll=false",
-    
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
