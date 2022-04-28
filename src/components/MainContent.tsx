@@ -7,6 +7,7 @@ interface weightData {
   dates: Date;
 }
 
+
 export default function MainContent(): JSX.Element {
   const [weightArray, setWeightArray] = useState<string[]>([]);
   const [weightArrayOfObjects, setWeightArrayOfObjects] = useState<
@@ -33,6 +34,7 @@ export default function MainContent(): JSX.Element {
     const fetchData = async () => {
       await axios.get("http://localhost:4000/weights").then((response) => {
         const weightData: weightData[] = response.data;
+        console.log(weightData)
         setWeightArrayOfObjects(weightData);
       });
     };
