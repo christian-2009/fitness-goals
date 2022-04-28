@@ -1,38 +1,68 @@
+*, html {
+    margin:0;
+    padding:0;  
+}
+
+
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Proxima Nova, Arial, Helvetica, sans-serif;
     text-align: center;
     font-size: 24px;
 }
 
 .header {
     background-color:#5D3FD3 ;
-    display: flex;
     color: whitesmoke;
-    height: 125px;
-    margin: 0;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    
-    
+    padding: 1px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.form-style {
+    text-align: left;
+    width:250px;
+    margin:20px ;
+    float:right;
+    top:-40px;
+}
+
+.weight-title {
+    margin-bottom: 4px;
+    color: #5D3FD3 ; 
+    font-size: 34px;
 }
 
 .weight-list {
-    list-style-type: none;
-    
-
+    list-style: none;
+    font-size: 18px;
+    padding: 5px;
+    text-align:left;
 }
 
-.weight-enter-display {
-    position: absolute;
-    right: 0px;
-    padding: 0px;
-    margin-right:40px;
+.enter-weight {
+    width: 50px;
+    
 }
 
-.description {
-    font-size: 15px;
+.weight-button {
+    width: 50px;
     
-     
+}
+
+.input-button {
+    display: inline-block;
+}
+
+.individual-weight{
+    display: inline-block;
+}
+
+.delete-button {
+    margin-left: 20px; 
+    
+}
+
+.center-delete {
+    text-align: left;
+    display:inline-block;
 }
