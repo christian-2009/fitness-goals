@@ -53,12 +53,12 @@ export default function MainContent(): JSX.Element {
     const currentDate = new Date(object.dates).toLocaleDateString();
     return (
       <div key={object.id}>
-        <li className="individual-weight">
+        <div className="individual-weight">
           {object.weight + "kg " + currentDate}
-        </li>
+        </div>
         <div className="center-delete">
           <button
-            className="individual-weight delete-button"
+            className="delete-button"
             onClick={() => handleDeleteWeight(object.id)}
           >
             delete
@@ -70,9 +70,9 @@ export default function MainContent(): JSX.Element {
 
   return (
     <>
-      <div className="form-style">
+      <div className="weigh-in">
         <h2 className="weight-title">Weigh in</h2>
-        <div className="input-button">
+        <div>
           <input
             className="enter-weight"
             placeholder="weight..."
@@ -86,9 +86,9 @@ export default function MainContent(): JSX.Element {
           </button>
         </div>
 
-        <ul className="weight-list">
+        <div className="weight-list">
           {displayWeights.slice(Math.max(0, displayWeights.length - 10))}
-        </ul>
+        </div>
       </div>
     </>
   );
