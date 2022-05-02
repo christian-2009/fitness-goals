@@ -17,7 +17,7 @@ export default function MainContent(): JSX.Element {
   //adding the weight to database
   const handleAddWeight = () => {
     const data = { weight: text };
-    axios.post("http://localhost:4000/weights", data);
+    axios.post("https://christians-fitness-app.herokuapp.com/weights", data);
     setText("");
     setWeightArray([...weightArray, text]);
   };
@@ -31,11 +31,13 @@ export default function MainContent(): JSX.Element {
   //fetching the weights from server
   useEffect(() => {
     const fetchData = async () => {
-      await axios.get("http://localhost:4000/weights").then((response) => {
-        const weightData: weightData[] = response.data;
-        console.log(weightData);
-        setWeightArrayOfObjects(weightData);
-      });
+      await axios
+        .get("https://christians-fitness-app.herokuapp.com/weights")
+        .then((response) => {
+          const weightData: weightData[] = response.data;
+          console.log(weightData);
+          setWeightArrayOfObjects(weightData);
+        });
     };
     fetchData();
   }, [weightArray]);
