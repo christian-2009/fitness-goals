@@ -3,7 +3,7 @@ import axios from "axios";
 
 interface weightData {
   weight: string;
-  id: string;
+  id: number;
   dates: Date;
 }
 
@@ -15,18 +15,24 @@ export default function MainContent(): JSX.Element {
   const [text, setText] = useState("");
 
   //adding the weight to database
-  const handleAddWeight = () => {
+  const handleAddWeight = async () => {
     const data = { weight: text };
-    axios.post("https://christians-fitness-app.herokuapp.com/weights", data);
-    setText("");
+    await axios.post(
+      "https://christians-fitness-app.herokuapp.com/weights",
+      data
+    );
     setWeightArray([...weightArray, text]);
+    setText("");
   };
 
-  // const handleDeleteWeight = () => {
-  //   const filteredWeightArray = weightArray.filter((object.id) => {
-
-  //   })
-  // }
+  const handleDeleteWeight = async (id: number) => {
+    await axios.delete(
+      `https://christians-fitness-app.herokuapp.com/weights/${id}`
+    );
+    setWeightArrayOfObjects(
+      weightArrayOfObjects.filter((weight) => weight.id !== id)
+    );
+  };
 
   //fetching the weights from server
   useEffect(() => {
@@ -35,8 +41,8 @@ export default function MainContent(): JSX.Element {
         .get("https://christians-fitness-app.herokuapp.com/weights")
         .then((response) => {
           const weightData: weightData[] = response.data;
-          console.log(weightData);
           setWeightArrayOfObjects(weightData);
+          console.log(weightData);
         });
     };
     fetchData();
@@ -51,12 +57,12 @@ export default function MainContent(): JSX.Element {
           {object.weight + "kg " + currentDate}
         </li>
         <div className="center-delete">
-          {/* need to fix the delete function */}
-          {/* <button className='individual-weight delete-button' onClick = {() => {
-               const filteredWeightArray = weightArray.filter((obj) =>{
-                 obj.id === object.id
-               })
-             }}>delete</button> */}
+          <button
+            className="individual-weight delete-button"
+            onClick={() => handleDeleteWeight(object.id)}
+          >
+            delete
+          </button>
         </div>
       </div>
     );
