@@ -5,19 +5,36 @@
 
 
 body {
-    font-family: Proxima Nova, Arial, Helvetica, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     text-align: center;
     font-size: 24px;
+    background-color: #1C3144 ;
 }
 
 .header {
-    background-color:#5D3FD3 ;
-    color: whitesmoke;
-    padding: 1px;
-    font-size: 40px;
     text-align: center;
+    color: white;
+    
+    font-size: 40px;
+    
+    
 }
 
+.header-container {
+    background-color:#3F88C5 ;
+    
+    
+}
+
+.design-message {
+    position: fixed;
+    left:20px;
+    top:10px;
+    
+    
+    font-size: 18px;
+    color: white;
+}
 .form-style {
     text-align: left;
     width:20%;
@@ -29,11 +46,13 @@ body {
 
 .weigh-in {
     width:20%;
-    
+    background-color: #A2AEBB ;
     text-align: left;
     padding-left:10px;
     display:flex;
     flex-direction: column;
+    margin: 15px;
+    border-radius: 5px;
     
     
     
@@ -42,8 +61,9 @@ body {
 
 .weight-title {
     margin-bottom: 4px;
-    color: #5D3FD3 ; 
-    font-size: 34px;
+    color: #1C3144 ; 
+    font-size: 38px;
+    text-decoration: underline;
 }
 
 .weight-list {
@@ -56,20 +76,22 @@ body {
 }
 
 .enter-weight {
-    height:20px;
-    width:50px;
+    height:25px;
+    width:70px;
     text-align: center;
+    font-size: 17px;
     
 }
 
-.weight-button {
-    background-color: #5D3FD3;
+.enter-button {
+    background-color: #3F88C5;
     color:white;
     border:none;
     height:25px;
     width:60px;
     font-size:20px;
     margin-left:5px;
+    border-radius:5px;
     
 }
 
@@ -77,8 +99,9 @@ body {
 
 .individual-weight{
     display: inline-block;
-    width:50%;
+    width:70%;
     margin-bottom:8px;
+    font-size: 22px;
 }
 
 
@@ -89,10 +112,11 @@ body {
 }
 
 .delete-button {
-    background-color: #5D3FD3;
+    background-color: #3F88C5;
     color:white;
     border:none;
     height:20px;
     width:55px;
     font-size:18px;
+    border-radius: 5px;
 }
