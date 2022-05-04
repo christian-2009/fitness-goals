@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import DisplayWeights from './DisplayWeights'
+import DisplayWeights from "./DisplayWeights";
 
 interface weightData {
   weight: string;
@@ -50,10 +50,17 @@ export default function MainContent(): JSX.Element {
   }, [weightArray]);
 
   //mapping over weight objects to display onscreen
-  
-    const displayWeights = weightArrayOfObjects.map( (object) =><div key={object.id}> 
-    <DisplayWeights weight={object.weight} id={object.id} dates={object.dates} handleDeleteWeight={handleDeleteWeight} />
-    </div>)
+
+  const displayWeights = weightArrayOfObjects.map((object) => (
+    <div key={object.id}>
+      <DisplayWeights
+        weight={object.weight}
+        id={object.id}
+        dates={object.dates}
+        handleDeleteWeight={handleDeleteWeight}
+      />
+    </div>
+  ));
 
   return (
     <>
@@ -77,9 +84,6 @@ export default function MainContent(): JSX.Element {
           {displayWeights.slice(Math.max(0, displayWeights.length - 10))}
         </div>
       </div>
-
-      
     </>
   );
 }
-
