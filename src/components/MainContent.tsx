@@ -14,16 +14,23 @@ export default function MainContent(): JSX.Element {
     weightData[]
   >([]);
   const [text, setText] = useState("");
+  const [goalWeightInput, setGoalWeightInput] = useState<string>("");
+  const [goalWeight, setGoalWeight] = useState<string>('')
 
   //adding the weight to database
   const handleAddWeight = async () => {
-    const data = { weight: text };
-    await axios.post(
-      "https://christians-fitness-app.herokuapp.com/weights",
-      data
-    );
-    setWeightArray([...weightArray, text]);
-    setText("");
+    if (!checkIfStringContainsOnlyNumbers(text)) {
+      window.alert("must be a number. Try again");
+      setText("");
+    } else {
+      const data = { weight: text };
+      await axios.post(
+        "https://christians-fitness-app.herokuapp.com/weights",
+        data
+      );
+      setWeightArray([...weightArray, text]);
+      setText("");
+    }
   };
 
   const handleDeleteWeight = async (id: number) => {
@@ -34,6 +41,16 @@ export default function MainContent(): JSX.Element {
       weightArrayOfObjects.filter((weight) => weight.id !== id)
     );
   };
+
+  // const handleSubmitGoalWeight = async () => {
+
+  // }
+
+  function checkIfStringContainsOnlyNumbers(string: string) {
+    if (string.match(/^[0-9]+$/) != null) {
+      return true;
+    }
+  }
 
   //fetching the weights from server
   useEffect(() => {
@@ -61,11 +78,29 @@ export default function MainContent(): JSX.Element {
       />
     </div>
   ));
+  console.log(displayWeights);
 
   return (
     <>
-      <div className="weigh-in">
+      <div className="weigh-in-container">
         <h2 className="weight-title">Weigh in</h2>
+        <p>
+          {/* Your goal:
+          {checkIfStringContainsOnlyNumbers(goalWeight) &&
+            parseInt(goalWeight) > 0
+          ? <b>{goalWeight}</b> :
+          <>
+          <input
+            placeholder="enter goal..."
+            value={goalWeightInput}
+            onChange={(event) => {
+              setGoalWeightInput(event.target.value);
+            }}
+          ></input>
+          <button onClick={handleSubmitGoalWeight}>Submit</button>
+          </>
+          } */}
+        </p>
         <div>
           <input
             className="enter-weight"
@@ -80,9 +115,7 @@ export default function MainContent(): JSX.Element {
           </button>
         </div>
 
-        <div className="weight-list">
-          {displayWeights.slice(Math.max(0, displayWeights.length - 10))}
-        </div>
+        <div className="weight-list">{displayWeights}</div>
       </div>
     </>
   );

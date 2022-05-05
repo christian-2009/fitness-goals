@@ -3,7 +3,7 @@ export default function PageHeader(): JSX.Element {
     <>
       <div className="header-container">
         <div className="header">
-          <h1>Fitness Goals</h1>
+          <h1>Fitness App💪</h1>
         </div>
 
         <div className="design-message">

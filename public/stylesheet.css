@@ -6,9 +6,8 @@
 
 body {
     font-family: 'Courier New', Courier, monospace;
-    text-align: center;
     font-size: 24px;
-    background-color: #1C3144 ;
+    background-color: #1C3144;
 }
 
 .header {
@@ -44,15 +43,17 @@ body {
     top:-40px;
 }
 
-.weigh-in {
-    width:20%;
+.weigh-in-container {
+    width:23%;
     background-color: #A2AEBB ;
     text-align: left;
     padding-left:10px;
+    padding-right: -2px;
     display:flex;
     flex-direction: column;
-    margin: 15px;
-    border-radius: 5px;
+    height:100vh;
+    /* margin: 0 15px; */
+    /* border-radius: 5px; */
     
     
     
