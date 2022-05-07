@@ -15,7 +15,7 @@ export default function MainContent(): JSX.Element {
   >([]);
   const [text, setText] = useState("");
   const [goalWeightInput, setGoalWeightInput] = useState<string>("");
-  const [goalWeight, setGoalWeight] = useState<string>('')
+  const [goalWeight, setGoalWeight] = useState<string>("");
 
   //adding the weight to database
   const handleAddWeight = async () => {
