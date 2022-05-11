@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DisplayWeights from "./DisplayWeights";
+import checkIfStringContainsOnlyNumbers from '../utils/checkIfStringContainsOnlyNumbers'
 
 interface weightData {
   weight: string;
   id: number;
   dates: Date;
+  type: string
 }
+
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://christians-fitness-app.herokuapp.com"
+    : "http://localhost:4000";
+
 
 export default function MainContent(): JSX.Element {
   const [weightArray, setWeightArray] = useState<string[]>([]);
@@ -15,7 +23,9 @@ export default function MainContent(): JSX.Element {
   >([]);
   const [text, setText] = useState("");
   const [goalWeightInput, setGoalWeightInput] = useState<string>("");
-  const [goalWeight, setGoalWeight] = useState<string>("");
+  const [goalWeightArray, setGoalWeightArray] = useState<string[]>([]);
+  const [goalWeight, setGoalWeight] = useState<string>('')
+  const [toggle, setToggle] = useState<boolean>(false)
 
   //adding the weight to database
   const handleAddWeight = async () => {
@@ -23,9 +33,9 @@ export default function MainContent(): JSX.Element {
       window.alert("must be a number. Try again");
       setText("");
     } else {
-      const data = { weight: text };
+      const data = { weight: text, type: 'weight' };
       await axios.post(
-        "https://christians-fitness-app.herokuapp.com/weights",
+        baseUrl + "/weights",
         data
       );
       setWeightArray([...weightArray, text]);
@@ -35,36 +45,56 @@ export default function MainContent(): JSX.Element {
 
   const handleDeleteWeight = async (id: number) => {
     await axios.delete(
-      `https://christians-fitness-app.herokuapp.com/weights/${id}`
+      baseUrl + `/weights/${id}`
     );
     setWeightArrayOfObjects(
       weightArrayOfObjects.filter((weight) => weight.id !== id)
     );
   };
+  console.log(goalWeight)
 
-  // const handleSubmitGoalWeight = async () => {
+  //adding the goal weight to database
+  const handleSubmitGoalWeight = async () => {
+    console.log(goalWeightInput)
+      const data = {weight: goalWeightInput, type: 'goal'}
+      await axios.post(baseUrl + '/weights', data)
+    // }else {
+    //   const data = {weight: goalWeightInput}
+    //   await axios.put(baseUrl + '/weights/goals', data)
+    // }
+    setGoalWeightArray([...goalWeightArray, goalWeightInput])
+    setToggle(toggle => !toggle)
 
-  // }
-
-  function checkIfStringContainsOnlyNumbers(string: string) {
-    if (string.match(/^[0-9]+$/) != null) {
-      return true;
-    }
   }
 
   //fetching the weights from server
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get("https://christians-fitness-app.herokuapp.com/weights")
+        .get(baseUrl + "/weights")
         .then((response) => {
           const weightData: weightData[] = response.data;
           setWeightArrayOfObjects(weightData);
-          console.log(weightData);
-        });
-    };
+          console.log('this is the weight data we receive', weightData);
+        })};
+    
     fetchData();
   }, [weightArray]);
+
+  //trying to fetch the goal weight from the database
+  useEffect(() => {
+    console.log('useEffect is running')
+    const fetchGoalWeightData = async () => {
+      await axios
+        .get(baseUrl + "/weights/goals")
+        .then((response) => {
+          const goalWeightData: weightData[] = response.data;
+          setGoalWeight(goalWeightData[0].weight);
+          console.log('this is our goal weight data', goalWeightData);
+        })};
+    
+    fetchGoalWeightData();
+  }, [toggle])
 
   //mapping over weight objects to display onscreen
 
@@ -78,28 +108,29 @@ export default function MainContent(): JSX.Element {
       />
     </div>
   ));
-  console.log(displayWeights);
+  
 
   return (
     <>
       <div className="weigh-in-container">
         <h2 className="weight-title">Weigh in</h2>
         <p>
-          {/* Your goal:
-          {checkIfStringContainsOnlyNumbers(goalWeight) &&
-            parseInt(goalWeight) > 0
-          ? <b>{goalWeight}</b> :
+          Your goal:
+          {checkIfStringContainsOnlyNumbers(goalWeightArray[goalWeightArray.length-1]) &&
+            parseInt(goalWeightArray[goalWeightArray.length-1]) > 0
+          ? <> <b>{goalWeight}kg</b> <button>edit</button> </> :
           <>
           <input
             placeholder="enter goal..."
+            className = "enter-weight"
             value={goalWeightInput}
             onChange={(event) => {
               setGoalWeightInput(event.target.value);
             }}
           ></input>
-          <button onClick={handleSubmitGoalWeight}>Submit</button>
+          <button className="submit-button" onClick={handleSubmitGoalWeight}>Submit</button>
           </>
-          } */}
+          }
         </p>
         <div>
           <input
