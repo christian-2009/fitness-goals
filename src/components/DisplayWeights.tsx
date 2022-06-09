@@ -15,16 +15,19 @@ export default function DisplayWeights({
 
   return (
     <>
-      <div className="individual-weight">
-        <b>{weight + "kg " + currentDate}</b>
+    <div className="individual-weight">
+      <div >
+        <p className = 'individual-weight--weight'>You weighed: {weight + "kg "}</p><br/>
+        <p className = 'individual-weight--date'>Date: {currentDate}</p>
       </div>
       <div className="center-delete">
         <button
           className="delete-button"
           onClick={() => handleDeleteWeight(id)}
         >
-          delete
+          Delete
         </button>
+      </div>
       </div>
     </>
   );
