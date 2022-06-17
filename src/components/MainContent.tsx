@@ -16,6 +16,7 @@ interface WeightData {
 export default function MainContent(): JSX.Element {
     const [nav, setNav] = useState<Nav>('Home')
     const [weights, setWeights] = useState<WeightData[]>([])
+    const [toggle, setToggle] = useState<boolean>(false)
 
     const handlePage = (string: Nav) => {
         setNav(string)
@@ -29,7 +30,7 @@ export default function MainContent(): JSX.Element {
             };
         
         fetchData();
-      }, []);
+      }, [toggle]);
 
     return (
         <>

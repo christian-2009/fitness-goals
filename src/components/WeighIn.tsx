@@ -69,16 +69,7 @@ export default function WeighIn(): JSX.Element {
   // }
 
   //fetching the weights from server
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(baseUrl + "/weights")
-      const weightData: WeightData[] = await response.data
-      setWeightArrayOfObjects(weightData)
-      console.log('this is the weight data we receive', weightData);
-        };
-    
-    fetchData();
-  }, [toggle]);
+  
 
   // const response = await fetch("https://dog.ceo/api/breeds/image/random");
   //     const jsonBody: DogInterface = await response.json();
