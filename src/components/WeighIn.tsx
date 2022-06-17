@@ -2,30 +2,34 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import DisplayWeights from "./DisplayWeights";
 import checkIfStringContainsOnlyNumbers from '../utils/checkIfStringContainsOnlyNumbers'
+import {baseUrl} from '../utils/URL'
 
-interface weightData {
+interface WeightData {
   weight: string;
   id: number;
   dates: Date;
   type: string
 }
 
-const baseUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://christians-fitness-app.herokuapp.com"
-    : "http://localhost:4000";
+
 
 
 export default function WeighIn(): JSX.Element {
   const [weightArray, setWeightArray] = useState<string[]>([]);
   const [weightArrayOfObjects, setWeightArrayOfObjects] = useState<
-    weightData[]
+    WeightData[]
   >([]);
   const [text, setText] = useState("");
   const [goalWeightInput, setGoalWeightInput] = useState<string>("");
   const [goalWeightArray, setGoalWeightArray] = useState<string[]>([]);
   const [goalWeight, setGoalWeight] = useState<string>('')
   const [toggle, setToggle] = useState<boolean>(false)
+
+  const handleEnter = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      handleAddWeight();
+    }
+  };
 
   //adding the weight to database
   const handleAddWeight = async () => {
@@ -38,7 +42,8 @@ export default function WeighIn(): JSX.Element {
         baseUrl + "/weights",
         data
       );
-      setWeightArray([...weightArray, text]);
+      // setWeightArray([...weightArray, text]);
+      setToggle(toggle => !toggle)
       setText("");
     }
   };
@@ -54,62 +59,57 @@ export default function WeighIn(): JSX.Element {
   console.log(goalWeight)
 
   //adding the goal weight to database
-  const handleSubmitGoalWeight = async () => {
-    console.log('this is the goalweight input', goalWeightInput)
-      const data = {weight: goalWeightInput, type: 'goal'}
-      await axios.post(baseUrl + '/weights', data)
-    // }else {
-    //   const data = {weight: goalWeightInput}
-    //   await axios.put(baseUrl + '/weights/goals', data)
-    // }
-    
-    console.log('this is the goalweightarray', goalWeightArray)
-    setToggle(toggle => !toggle)
+  // const handleSubmitGoalWeight = async () => {
+  //   console.log('this is the goalweight input', goalWeightInput)
+  //     const data = {weight: goalWeightInput, type: 'goal'}
+  //     await axios.post(baseUrl + '/weights', data)
+  //   console.log('this is the goalweightarray', goalWeightArray)
+  //   setToggle(toggle => !toggle)
 
-  }
+  // }
 
   //fetching the weights from server
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(baseUrl + "/weights")
-      const weightData: weightData[] = await response.data
+      const weightData: WeightData[] = await response.data
       setWeightArrayOfObjects(weightData)
       console.log('this is the weight data we receive', weightData);
         };
     
     fetchData();
-  }, [weightArray]);
+  }, [toggle]);
 
   // const response = await fetch("https://dog.ceo/api/breeds/image/random");
   //     const jsonBody: DogInterface = await response.json();
   //     setDog1(jsonBody);
 
   //trying to fetch the goal weight from the database
-  useEffect(() => {
-    console.log('useEffect is running')
-    const fetchGoalWeightData = async () => {
-      const response = await axios.get(baseUrl + "/weights/goals")
-      const goalWeightData: weightData = await response.data
-      console.log('this is our goal weight data', goalWeightData);
-      setGoalWeight(goalWeightData.weight);
-      setGoalWeightArray([...goalWeightArray, goalWeightData.weight])
+  // useEffect(() => {
+  //   console.log('useEffect is running')
+  //   const fetchGoalWeightData = async () => {
+  //     const response = await axios.get(baseUrl + "/weights/goals")
+  //     const goalWeightData: WeightData = await response.data
+  //     console.log('this is our goal weight data', goalWeightData);
+  //     setGoalWeight(goalWeightData.weight);
+  //     setGoalWeightArray([...goalWeightArray, goalWeightData.weight])
       
-        };
+  //       };
     
-    fetchGoalWeightData();
-  }, [])
+  //   fetchGoalWeightData();
+  // }, [])
 
-  useEffect(() => {
-    console.log('useEffect is running')
-    const fetchGoalWeightData = async () => {
-      const response = await axios.get(baseUrl + "/weights/goals")
-      const goalWeightData: weightData = await response.data
-      setGoalWeight(goalWeightData.weight);
-      console.log('this is our goal weight data', goalWeightData);
-        };
+  // useEffect(() => {
+  //   console.log('useEffect is running')
+  //   const fetchGoalWeightData = async () => {
+  //     const response = await axios.get(baseUrl + "/weights/goals")
+  //     const goalWeightData: WeightData = await response.data
+  //     setGoalWeight(goalWeightData.weight);
+  //     console.log('this is our goal weight data', goalWeightData);
+  //       };
     
-    fetchGoalWeightData();
-  }, [toggle])
+  //   fetchGoalWeightData();
+  // }, [toggle])
 
 
 
@@ -133,13 +133,13 @@ export default function WeighIn(): JSX.Element {
     <>
       <div className="weigh-in-container">
         <h2 className="weight-title">Weigh-in</h2>
-        <div className = 'weigh-in--goal'>
+        {/* <div className = 'weigh-in--goal'>
         
         <p>
           Your goal:
           {checkIfStringContainsOnlyNumbers(goalWeight) &&
             parseInt(goalWeight) > 0
-          ? <> <b>{goalWeight}kg</b> <button className="edit-button" >edit</button> </> :
+          ? <> <b onClick = {handleEditGoalWeight}>{goalWeight}kg</b> <button className="edit-button" >edit</button> </> :
           <>
           <input
             placeholder="enter goal..."
@@ -153,7 +153,7 @@ export default function WeighIn(): JSX.Element {
           </>
           }
         </p>
-        </div>
+        </div> */}
         <div className = 'weight-list--enter-weight-container'>
           <p className='weight-list--weight-string'>Your weight of the week: </p>
           <input
@@ -163,10 +163,8 @@ export default function WeighIn(): JSX.Element {
             onChange={(event) => {
               setText(event.target.value);
             }}
+            onKeyDown={(e) => handleEnter(e)}
           />
-          <button className="enter-button" onClick={handleAddWeight}>
-            Enter
-          </button>
         </div>
 
         <div className="weight-list">{displayWeights}</div>

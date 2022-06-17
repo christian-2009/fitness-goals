@@ -6,16 +6,18 @@
 
 body {
     font-family: "Karla", sans-serif;
-    font-size: 24px;
+    font-size: 1.25em;
+
 
 }
 
 .header {
     text-align: left;
     color: white;
-    font-size: 35px;
+    font-size: 2em;
     padding-bottom:10px;
     margin-left:30px;
+
 
 }
 
@@ -23,29 +25,44 @@ body {
     background-color:#3F88C5 ;
     display:flex;
 
+    margin: 0;
+
+
+}
+
+.navbar {
+
+    width: 60%;
+    display: flex;
+;
+
 
 }
 
 .navbar--list {
- 
+    
     display: flex;
-    width:900px;
+    width: 100%;
     flex-direction: row;
     list-style-type: none;
-    margin-top: 30px;
-    margin-left: 100%;
-    overflow: hidden;
+    margin: auto 0;
+    margin-left: 20%;
+    justify-content: center;
+
+
+
 
 }
 
 .navbar--list-item {
 
-
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 3% 2%;
     text-decoration: none;
     border-radius: 5px;
+    font-size: 1.2em;
+    width:20%;
 }
 
 .navbar--list-item:hover {
@@ -66,6 +83,7 @@ body {
     margin: 0 auto;
     display:flex;
     flex-direction: column;
+    margin-top:1%;
 }
 
 .weight-title {
@@ -85,7 +103,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin:30px 0;
+    margin:5% 0;
 }
 
 .weight-list--weight-string {
@@ -99,19 +117,13 @@ body {
 
 }
 
-.enter-weight {
-    height:25px;
-    width:70px;
-    text-align: center;
-    font-size: 17px;
-    
-}
+
 
 .enter-button {
     background-color: #3F88C5;
     color:white;
     border:none;
-    height:25px;
+    padding: 1% 0;
     width:60px;
     font-size:20px;
     margin-left:5px;
@@ -119,11 +131,15 @@ body {
     
 }
 
+.enter-button:hover {
+    background-color: #1C3144;
+}
+
 .submit-button {
     background-color: #3F88C5;
     color:white;
     border:none;
-    height:25px;
+    padding: 0.5% 0;
     width:70px;
     font-size:20px;
     margin-left:5px;
@@ -135,7 +151,7 @@ body {
     background-color: #3F88C5;
     color:white;
     border:none;
-    height:25px;
+    padding: 0.5% 0;
     width:50px;
     font-size:20px;
     margin-left:0;
@@ -143,10 +159,14 @@ body {
     
 }
 
+.edit-button:hover {
+    background-color: #1C3144;
+}
+
 .individual-weight{
     width: 40%;
     margin: 0 auto;
-    margin-bottom:50px;
+    margin-bottom:5%;
     font-size: 22px;
     color:white;
     text-align: center;
@@ -178,4 +198,25 @@ body {
 
 .delete-button:hover{
     background-color: #405c73;
+}
+
+.enter-weight {
+ 
+    width:8%;
+    text-align: center;
+    font-size: 1em;
+    padding:0.5%;
+    border: solid #1C3144 2px;
+    border-radius: 5px;
+    
+}
+
+.enter-weight:hover{
+    border: solid #405c73 2px;
+    border-radius:5px;
+}
+
+.homepage-container {
+    text-align:center;
+    margin-top:0.5%;
 }
