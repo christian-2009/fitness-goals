@@ -15,19 +15,22 @@ export default function DisplayWeights({
 
   return (
     <>
-    <div className="individual-weight">
-      <div >
-        <p className = 'individual-weight--weight'>You weighed: {weight + "kg "}</p><br/>
-        <p className = 'individual-weight--date'>Date: {currentDate}</p>
-      </div>
-      <div className="center-delete">
-        <button
-          className="delete-button"
-          onClick={() => handleDeleteWeight(id)}
-        >
-          Delete
-        </button>
-      </div>
+      <div className="individual-weight">
+        <div>
+          <p className="individual-weight--weight">
+            You weighed: {weight + "kg "}
+          </p>
+          <br />
+          <p className="individual-weight--date">Date: {currentDate}</p>
+        </div>
+        <div className="center-delete">
+          <button
+            className="delete-button"
+            onClick={() => handleDeleteWeight(id)}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </>
   );

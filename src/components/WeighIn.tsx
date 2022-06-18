@@ -1,31 +1,33 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DisplayWeights from "./DisplayWeights";
-import checkIfStringContainsOnlyNumbers from '../utils/checkIfStringContainsOnlyNumbers'
-import {baseUrl} from '../utils/URL'
+import checkIfStringContainsOnlyNumbers from "../utils/checkIfStringContainsOnlyNumbers";
+import { baseUrl } from "../utils/URL";
 
 interface WeightData {
   weight: string;
   id: number;
   dates: Date;
-  type: string
+  type: string;
 }
 
 interface WeighInInterface {
   toggle: boolean;
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
-  weights: WeightData[]
+  weights: WeightData[];
 }
 
-
-export default function WeighIn({toggle, setToggle, weights}: WeighInInterface): JSX.Element {
+export default function WeighIn({
+  toggle,
+  setToggle,
+  weights,
+}: WeighInInterface): JSX.Element {
   const [weightArray, setWeightArray] = useState<string[]>([]);
   const [text, setText] = useState("");
   const [goalWeightInput, setGoalWeightInput] = useState<string>("");
   const [goalWeightArray, setGoalWeightArray] = useState<string[]>([]);
-  const [goalWeight, setGoalWeight] = useState<string>('')
- 
-  
+  const [goalWeight, setGoalWeight] = useState<string>("");
+
   const handleEnter = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       handleAddWeight();
@@ -38,25 +40,18 @@ export default function WeighIn({toggle, setToggle, weights}: WeighInInterface):
       window.alert("must be a number. Try again");
       setText("");
     } else {
-      const data = { weight: text, type: 'weight' };
-      await axios.post(
-        baseUrl + "/weights",
-        data
-      );
-      setToggle(toggle => !toggle)
-      console.log(toggle)
+      const data = { weight: text, type: "weight" };
+      await axios.post(baseUrl + "/weights", data);
+      setToggle((toggle) => !toggle);
+      console.log(toggle);
       setText("");
     }
   };
 
   const handleDeleteWeight = async (id: number) => {
-    await axios.delete(
-      baseUrl + `/weights/${id}`
-    );
-    setToggle(toggle => !toggle)
-    
+    await axios.delete(baseUrl + `/weights/${id}`);
+    setToggle((toggle) => !toggle);
   };
-
 
   //adding the goal weight to database
   // const handleSubmitGoalWeight = async () => {
@@ -69,7 +64,6 @@ export default function WeighIn({toggle, setToggle, weights}: WeighInInterface):
   // }
 
   //fetching the weights from server
-  
 
   // const response = await fetch("https://dog.ceo/api/breeds/image/random");
   //     const jsonBody: DogInterface = await response.json();
@@ -84,9 +78,9 @@ export default function WeighIn({toggle, setToggle, weights}: WeighInInterface):
   //     console.log('this is our goal weight data', goalWeightData);
   //     setGoalWeight(goalWeightData.weight);
   //     setGoalWeightArray([...goalWeightArray, goalWeightData.weight])
-      
+
   //       };
-    
+
   //   fetchGoalWeightData();
   // }, [])
 
@@ -98,11 +92,9 @@ export default function WeighIn({toggle, setToggle, weights}: WeighInInterface):
   //     setGoalWeight(goalWeightData.weight);
   //     console.log('this is our goal weight data', goalWeightData);
   //       };
-    
+
   //   fetchGoalWeightData();
   // }, [toggle])
-
-
 
   //mapping over weight objects to display onscreen
 
@@ -116,9 +108,9 @@ export default function WeighIn({toggle, setToggle, weights}: WeighInInterface):
       />
     </div>
   ));
-  
-    //make the edit of goal weight an onclick on the actual weight. not a button
-    //get rid of enter button
+
+  //make the edit of goal weight an onclick on the actual weight. not a button
+  //get rid of enter button
 
   return (
     <>
@@ -145,8 +137,10 @@ export default function WeighIn({toggle, setToggle, weights}: WeighInInterface):
           }
         </p>
         </div> */}
-        <div className = 'weight-list--enter-weight-container'>
-          <p className='weight-list--weight-string'>Your weight of the week: </p>
+        <div className="weight-list--enter-weight-container">
+          <p className="weight-list--weight-string">
+            Your weight of the week:{" "}
+          </p>
           <input
             className="enter-weight"
             placeholder="weight..."
