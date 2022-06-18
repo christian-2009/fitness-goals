@@ -31,6 +31,7 @@ export default function MainContent(): JSX.Element {
         
         fetchData();
       }, [toggle]);
+    
 
     return (
         <>
@@ -48,7 +49,7 @@ export default function MainContent(): JSX.Element {
         </div>
         </div>
         {nav === 'Home' && <Home weights={weights}/>}
-        {nav === 'Weigh-in' && <WeighIn />}
+        {nav === 'Weigh-in' && <WeighIn toggle={toggle} setToggle={setToggle} weights={weights}/>}
 
         </>
     )

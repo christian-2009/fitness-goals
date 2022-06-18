@@ -11,20 +11,21 @@ interface WeightData {
   type: string
 }
 
+interface WeighInInterface {
+  toggle: boolean;
+  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  weights: WeightData[]
+}
 
 
-
-export default function WeighIn(): JSX.Element {
+export default function WeighIn({toggle, setToggle, weights}: WeighInInterface): JSX.Element {
   const [weightArray, setWeightArray] = useState<string[]>([]);
-  const [weightArrayOfObjects, setWeightArrayOfObjects] = useState<
-    WeightData[]
-  >([]);
   const [text, setText] = useState("");
   const [goalWeightInput, setGoalWeightInput] = useState<string>("");
   const [goalWeightArray, setGoalWeightArray] = useState<string[]>([]);
   const [goalWeight, setGoalWeight] = useState<string>('')
-  const [toggle, setToggle] = useState<boolean>(false)
-
+ 
+  
   const handleEnter = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       handleAddWeight();
@@ -42,8 +43,8 @@ export default function WeighIn(): JSX.Element {
         baseUrl + "/weights",
         data
       );
-      // setWeightArray([...weightArray, text]);
       setToggle(toggle => !toggle)
+      console.log(toggle)
       setText("");
     }
   };
@@ -52,11 +53,10 @@ export default function WeighIn(): JSX.Element {
     await axios.delete(
       baseUrl + `/weights/${id}`
     );
-    setWeightArrayOfObjects(
-      weightArrayOfObjects.filter((weight) => weight.id !== id)
-    );
+    setToggle(toggle => !toggle)
+    
   };
-  console.log(goalWeight)
+
 
   //adding the goal weight to database
   // const handleSubmitGoalWeight = async () => {
@@ -106,7 +106,7 @@ export default function WeighIn(): JSX.Element {
 
   //mapping over weight objects to display onscreen
 
-  const displayWeights = weightArrayOfObjects.map((object) => (
+  const displayWeights = weights.map((object) => (
     <div key={object.id}>
       <DisplayWeights
         weight={object.weight}
